@@ -1,19 +1,20 @@
 import items.Item;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
+import static java.lang.String.format;
 
 public class ShoppingBasket {
 
-    private Map<Item,Integer> lineItems = new HashMap<>();
+    private List<LineItem> lineItems = new ArrayList<>();
 
     public String addLineItem(Integer quantity, Item item){
-        lineItems.put(item,quantity);
-        return quantity.toString() + ' '+ item;
+        lineItems.add(new LineItem(quantity,item));
+        return format("%d %s",quantity,item);
     }
 
-    public Collection listItems() {
-        return lineItems.keySet();
+    public Receipt checkout() {
+        return new Receipt(lineItems);
     }
+
 }

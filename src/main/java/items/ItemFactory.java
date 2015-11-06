@@ -1,10 +1,14 @@
 package items;
 
-/**
- * Created by fprivato on 06/11/15.
- */
 public class ItemFactory {
+
     public static Item create(String substring) {
-        return null;
+        String[] splitted=substring.split(" at ");
+        Item item;
+        item = ExemptItem.create(splitted[0],splitted[1]);
+        if (item != null) {
+            return item;
+        }
+        return NormalItem.create(splitted[0],splitted[1]);
     }
 }

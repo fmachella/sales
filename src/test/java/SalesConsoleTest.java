@@ -16,7 +16,7 @@ public class SalesConsoleTest {
 
         Receipt receipt = console.calculateReceipt();
 
-        assertEquals("1 book : 12.49",receipt.printItemAt(0));
+        assertEquals("1 book: 12.49",receipt.printItemAt(0));
         assertEquals("1 music CD: 16.49",receipt.printItemAt(1));
         assertEquals("1 chocolate bar: 0.85",receipt.printItemAt(2));
         assertEquals("Sales Taxes: 1.50",receipt.taxes());

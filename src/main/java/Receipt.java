@@ -1,28 +1,35 @@
-import items.Item;
-
-import java.util.LinkedList;
+import java.math.BigDecimal;
 import java.util.List;
+
+import static java.lang.String.format;
 
 public class Receipt {
 
-    private List<String> boughtItems;
+    private List<LineItem> boughtLineItems;
 
-    public Receipt(){
-        boughtItems = new LinkedList<>();
-        boughtItems.add("1 book : 12.49");
-        boughtItems.add("1 music CD: 16.49");
-        boughtItems.add("1 chocolate bar: 0.85");
+    public Receipt(List<LineItem> boughtLineItems){
+        this.boughtLineItems = boughtLineItems;
     }
 
     public String total() {
-        return "Total: 29.83";
+        BigDecimal bigDecimalTotal = BigDecimal.ZERO;
+        for (LineItem boughtLineItem : boughtLineItems) {
+            bigDecimalTotal=bigDecimalTotal.add(boughtLineItem.calculatePartial());
+        }
+        return format("Total: %s", bigDecimalTotal.toPlainString());
     }
 
     public String taxes() {
-        return "Sales Taxes: 1.50";
+        BigDecimal taxes = BigDecimal.ZERO;
+        for (LineItem boughtLineItem : boughtLineItems) {
+            taxes=taxes.add(boughtLineItem.tax());
+        }
+        return format("Sales Taxes: %s", taxes.toPlainString());
     }
 
     public String printItemAt(int position) {
-        return boughtItems.get(position);
+        LineItem theItem = boughtLineItems.get(position);
+        BigDecimal lineItemPartial= theItem.calculatePartial();
+        return format("%d %s: %s",theItem.quantity(),theItem.description(), lineItemPartial.toPlainString());
     }
 }
