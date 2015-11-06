@@ -1,13 +1,14 @@
+import items.Item;
+
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ShoppingBasket {
 
-    private Map<String,Integer> lineItems = new HashMap<String, Integer>();
+    private Map<Item,Integer> lineItems = new HashMap<>();
 
-    public String addLineItem(Integer quantity, String item){
+    public String addLineItem(Integer quantity, Item item){
         lineItems.put(item,quantity);
         return quantity.toString() + ' '+ item;
     }
