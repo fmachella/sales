@@ -1,9 +1,18 @@
-/**
- * Created by fprivato on 06/11/15.
- */
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ShoppingBasket {
 
-    public String addLineItem(String item){
-        return item;
+    private Map<String,Integer> lineItems = new HashMap<String, Integer>();
+
+    public String addLineItem(Integer quantity, String item){
+        lineItems.put(item,quantity);
+        return quantity.toString() + ' '+ item;
+    }
+
+    public Collection listItems() {
+        return lineItems.keySet();
     }
 }
