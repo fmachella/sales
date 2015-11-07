@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -34,5 +35,19 @@ public class SalesConsoleTest {
         assertEquals("10 book: 124.90",receipt.printItemAt(0));
         assertEquals("Sales Taxes: 0.00",receipt.taxes());
         assertEquals("Total: 124.90",receipt.total());
+    }
+
+    @Test
+    @Ignore
+    public void shouldCheckoutInput2Basket(){
+        console.addToBasket("1 imported box of chocolates at 10.00");
+        console.addToBasket("1 imported bottle of perfume at 47.50");
+
+        Receipt receipt = console.calculateReceipt();
+
+        assertEquals("1 imported box of chocolates: 10.50",receipt.printItemAt(0));
+        assertEquals("1 imported bottle of perfume: 54.65",receipt.printItemAt(1));
+        assertEquals("Sales Taxes: 7.65",receipt.taxes());
+        assertEquals("Total: 65.15",receipt.total());
     }
 }

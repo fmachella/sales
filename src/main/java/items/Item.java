@@ -2,11 +2,30 @@ package items;
 
 import java.math.BigDecimal;
 
-public interface Item {
-    BigDecimal grossPrice();
+public abstract class Item {
+    private final String description;
+    private final BigDecimal price;
 
-    BigDecimal tax();
+    public Item(String description, BigDecimal price) {
+        this.description = description;
+        this.price = price;
+    }
 
-    String description();
+    public BigDecimal grossPrice() {
+        return price.multiply(taxPercent().add(BigDecimal.ONE));
+    }
 
+    public BigDecimal tax() {
+        return price.multiply(taxPercent());
+    }
+
+    public String description() {
+        return description;
+    }
+
+    public abstract BigDecimal taxPercent();
+
+    public String toString(){
+        return String.format("%s at %s",description,price.toPlainString());
+    }
 }
