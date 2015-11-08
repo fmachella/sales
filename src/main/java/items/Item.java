@@ -1,7 +1,6 @@
 package items;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static java.math.BigDecimal.valueOf;
 
@@ -48,14 +47,8 @@ public class Item {
     }
 
     private BigDecimal roundUpTo05(BigDecimal math_rounded) {
-        BigDecimal decimal_part=math_rounded.remainder(BigDecimal.ONE);
-        BigDecimal decimal_normalized = decimal_part.multiply(valueOf(100)).remainder(valueOf(5));
-        BigDecimal round_rest_decimal = BigDecimal.ZERO;
-        if (BigDecimal.ZERO.compareTo(decimal_normalized) != 0){
-            BigDecimal round_rest = valueOf(5).subtract(decimal_normalized);
-            round_rest_decimal = round_rest.divide(valueOf(100));
-        }
-        return round_rest_decimal;
+        BigDecimal differences = math_rounded.remainder(BigDecimal.ONE).remainder(valueOf(0.05));
+        return BigDecimal.ZERO.compareTo(differences) != 0 ? valueOf(0.05).subtract(differences) : BigDecimal.ZERO;
     }
 
 }
