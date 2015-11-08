@@ -14,7 +14,7 @@ public class ShoppingBasket {
     }
 
     public Receipt checkout() {
-        return new Receipt(lineItems);
+        return new Receipt(Collections.unmodifiableList(lineItems));
     }
 
 }
