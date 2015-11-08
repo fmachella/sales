@@ -34,7 +34,6 @@ public class Item {
     }
 
     public BigDecimal tax() {
-        price.divide(BigDecimal.valueOf(0.05), 0, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(0.05));
         BigDecimal math_rounded =price.multiply(taxPercent).setScale(2, BigDecimal.ROUND_HALF_UP);
         BigDecimal adjusted_decimal = roundUpTo05(math_rounded);
         return math_rounded.add(adjusted_decimal);
