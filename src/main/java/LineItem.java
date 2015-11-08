@@ -2,6 +2,8 @@ import items.Item;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.valueOf;
+
 public class LineItem {
     private final Integer quantity;
     private final Item object;
@@ -28,6 +30,6 @@ public class LineItem {
     }
 
     private BigDecimal calculateWithRoundUp(BigDecimal tax) {
-        return BigDecimal.valueOf(quantity).multiply(tax).setScale(2, BigDecimal.ROUND_HALF_UP);
+        return valueOf(quantity).multiply(tax).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 }

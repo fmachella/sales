@@ -38,7 +38,6 @@ public class SalesConsoleTest {
     }
 
     @Test
-    @Ignore
     public void shouldCheckoutInput2Basket(){
         console.addToBasket("1 imported box of chocolates at 10.00");
         console.addToBasket("1 imported bottle of perfume at 47.50");

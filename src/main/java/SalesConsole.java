@@ -1,5 +1,4 @@
 import items.Item;
-import items.ItemFactory;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +14,7 @@ public class SalesConsole {
         String rest = m.group(2);
 
         Integer itemQuantity = Integer.parseInt(stringQuantity);
-        Item item = ItemFactory.create(rest);
+        Item item = Item.create(rest);
         basket.addLineItem(itemQuantity,item);
     }
 
