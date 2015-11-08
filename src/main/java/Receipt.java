@@ -30,6 +30,17 @@ public class Receipt {
     public String printItemAt(int position) {
         LineItem theItem = boughtLineItems.get(position);
         BigDecimal lineItemPartial= theItem.calculatePartial();
-        return format("%d %s: %s",theItem.quantity(),theItem.description(), lineItemPartial.toPlainString());
+        return format("%d %s: %s",theItem.quantity(), theItem.description(), lineItemPartial.toPlainString());
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer paper = new StringBuffer();
+        for (int linePosition = 0; linePosition < boughtLineItems.size(); linePosition++) {
+             paper.append(printItemAt(linePosition)).append('\n');
+        }
+        paper.append(taxes()).append('\n');
+        paper.append(total());
+        return paper.toString();
     }
 }

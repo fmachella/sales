@@ -2,6 +2,8 @@ import items.Item;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.Assert.*;
 
 public class ShoppingBasketTest {
@@ -16,7 +18,7 @@ public class ShoppingBasketTest {
     @Test
     public void shouldCheckoutBasketGivenANormalItem(){
 
-        Item normalItem = Item.create("music CD at 14.99");
+        Item normalItem = Item.create("music CD", BigDecimal.valueOf(14.99));
 
         basket.addLineItem(1,normalItem);
 
@@ -27,7 +29,7 @@ public class ShoppingBasketTest {
 
     @Test
     public void shouldAddToBasket(){
-        Item normalItem = Item.create("music CD at 14.99");
+        Item normalItem = Item.create("music CD", BigDecimal.valueOf(14.99));
 
         assertEquals(basket.addLineItem(1,normalItem),"1 music CD at 14.99");
     }

@@ -1,6 +1,7 @@
 import items.Item;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ReceiptTest {
 
     private List<LineItem> createCart(){
         List<LineItem> boughtLineItems = new ArrayList<>();
-        boughtLineItems.add(new LineItem(1, Item.create("generic at 14.99")));
+        boughtLineItems.add(new LineItem(1, Item.create("generic", BigDecimal.valueOf(14.99))));
         return boughtLineItems;
     }
 }

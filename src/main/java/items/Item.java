@@ -1,29 +1,27 @@
 package items;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static java.math.BigDecimal.valueOf;
 
 public class Item {
 
-    public static Item create(String substring) {
-        String[] desc_and_price=substring.split(" at ");
-        String description = desc_and_price[0];
-        String price = desc_and_price[1];
-        BigDecimal taxRatio = valueOf(0.1);
+    public static Item create(String description, BigDecimal price) {
+        BigDecimal taxPercent = valueOf(0.1);
         if (description.matches(".*(book|chocolate|pills).*")){
-            taxRatio=BigDecimal.ZERO;
+            taxPercent=BigDecimal.ZERO;
         }
         if(description.matches(".*import.*")){
-            taxRatio=taxRatio.add(valueOf(0.05));
+            return new ImportedItem(description,price,taxPercent);
         }
-        return new Item(description, valueOf(Double.parseDouble(price)),taxRatio);
+        return new Item(description, price, taxPercent);
     }
 
 
-    private final String description;
-    private final BigDecimal price;
-    private BigDecimal taxPercent;
+    protected final String description;
+    protected final BigDecimal price;
+    protected BigDecimal taxPercent;
 
     public Item(String description, BigDecimal price, BigDecimal taxPercent) {
         this.description = description;
@@ -36,6 +34,7 @@ public class Item {
     }
 
     public BigDecimal tax() {
+        price.divide(BigDecimal.valueOf(0.05), 0, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(0.05));
         BigDecimal math_rounded =price.multiply(taxPercent).setScale(2, BigDecimal.ROUND_HALF_UP);
         BigDecimal adjusted_decimal = roundUpTo05(math_rounded);
         return math_rounded.add(adjusted_decimal);
@@ -48,7 +47,6 @@ public class Item {
     public String toString(){
         return String.format("%s at %s",description,price.toPlainString());
     }
-
 
     private BigDecimal roundUpTo05(BigDecimal math_rounded) {
         BigDecimal decimal_part=math_rounded.remainder(BigDecimal.ONE);
